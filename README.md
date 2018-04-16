@@ -2,7 +2,7 @@
 ==================
 
 ## 說明
-給他一個 591 的網址，他會將租屋資訊轉成 JSON 格式給你。提供一個 cli 工具以及一個基於 flask 的 api 介面。
+給他一個 591 的網址，他會將租屋資訊轉成 JSON 格式給你，同時支援抓取連絡電話。提供一個 cli 工具以及一個基於 flask 的 api 介面。
 
 ## 使用方式
 ### 安裝
@@ -15,6 +15,16 @@ cd 591HousingApi
 2. 安裝 python 的 dependencies
 ```bash
 pip install -r requirements.txt
+```
+
+3. 安裝 Tesseract。除了 python 對應的 Tesseract 模組之外，還得要安裝 Tesseract 引擎
+For ubuntu/debian:
+```bash
+apt install -y tesseract-ocr
+```
+For FreeBSD:
+```bash
+pkg install -y tesseract
 ```
 
 3. 使用指令介面或 API 介面

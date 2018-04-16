@@ -75,7 +75,7 @@ def parse_status(soup):
 
 def parse_phone_number(soup):
     phoneImg = soup.select('span.num')
-    if len(phoneImg) > 0:
+    if phoneImg[0].img:
         phoneImgUrl = phoneImg[0].img['src'].replace('//', 'https://')
         rep = requests.get(phoneImgUrl, headers=headers).content
         image = Image.open(io.BytesIO(rep))
