@@ -7,11 +7,15 @@ import json
 import requests
 import sys
 import argparse
+import io
+import pytesseract
+from PIL import Image
+
+headers = {
+    'User-agent': 'Report abuse: me@frankchang.me',
+}
 
 def fetch_info(link):
-    headers = {
-        'User-agent': 'Report abuse: me@frankchang.me',
-    }
     return requests.get(link, headers=headers).text.encode('utf-8')
 
 def parse_label_list(soup):
@@ -69,6 +73,17 @@ def parse_status(soup):
     return soup.select('div.houseIntro')[0].getText().replace('&nbsp;', ' ')\
         .replace('<br>', '\n').replace(' ', '').replace('\xa0', '')
 
+def parse_phone_number(soup):
+    phoneImg = soup.select('span.num')
+    if len(phoneImg) > 0:
+        phoneImgUrl = phoneImg[0].img['src'].replace('//', 'https://')
+        rep = requests.get(phoneImgUrl, headers=headers).content
+        image = Image.open(io.BytesIO(rep))
+
+        return pytesseract.image_to_string(image).replace(' ','')
+
+    return None
+
 def get_591_info(link):
     info = OrderedDict()
 
@@ -80,6 +95,7 @@ def get_591_info(link):
     info[u'地址'] = soup.select('span.addr')[0].getText()
     info[u'網址'] = link
     info[u'照片'] = parse_photos(soup)
+    info[u'聯絡方式'] = parse_phone_number(soup)
 
     info.update(parse_info(soup))
     info[u'房東提供'] = facility_info[0]
