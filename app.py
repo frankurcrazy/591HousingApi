@@ -3,12 +3,19 @@
 
 from flask import Flask, jsonify
 from parse import get_591_info
+import re
 
 app = Flask(__name__)
 app.config["JSON_SORT_KEYS"] = False
+pattern = re.compile(r'^https://rent.591.com.tw/rent-detail-\d+.html$')
 
 @app.route('/591/<path:url>')
 def get_info(url):
+    if not pattern.match(url): return jsonify({
+        'status': 'error',
+        'message': 'Not supported',
+    })
+
     try:
         info = get_591_info(url)
 
@@ -26,5 +33,5 @@ def get_info(url):
     return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run()
 
