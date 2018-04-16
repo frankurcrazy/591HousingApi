@@ -18,6 +18,7 @@ pip install -r requirements.txt
 ```
 
 3. 安裝 Tesseract。除了 python 對應的 Tesseract 模組之外，還得要安裝 Tesseract 引擎
+
 For ubuntu/debian:
 ```bash
 apt install -y tesseract-ocr
