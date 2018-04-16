@@ -24,7 +24,7 @@ def parse_label_list(soup):
 
     for li in labels.select('li.clearfix'):
         for div in li.select('div.one'):
-            key = div.getText()
+            key = div.getText().replace(u' ','')
             value = div.findNextSibling('div', {'class': 'two'}).em.getText()
             labellist.append((key, value))
 
@@ -71,7 +71,7 @@ def parse_info(soup):
 
 def parse_status(soup):
     return soup.select('div.houseIntro')[0].getText().replace('&nbsp;', ' ')\
-        .replace('<br>', '\n').replace(' ', '').replace('\xa0', '')
+        .replace('<br>', '\n').replace(' ', '').replace('\xa0', '').replace('\r\n','\n')
 
 def parse_phone_number(soup):
     phoneImg = soup.select('span.num')
