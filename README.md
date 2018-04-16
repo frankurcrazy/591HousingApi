@@ -8,7 +8,7 @@
 ### 安裝
 1. 先 clone 一份 repo 到本地端
 ```sh
-git clone git@github.com:frankurcrazy/591HousingApi.git
+git clone https://github.com/frankurcrazy/591HousingApi.git
 cd 591HousingApi
 ```
 
