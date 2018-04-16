@@ -30,5 +30,5 @@ python ./app.py
 打開瀏覽器輸入網址: http\://localhost:5000/591/[591 租屋網網址]
 
 ### 線上使用
-https\://frankchang.me/591/\[591 租屋網網址]
+https\://frankchang.me/591/\[591 租屋網網址\]
 
