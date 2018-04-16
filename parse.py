@@ -18,8 +18,8 @@ def parse_label_list(soup):
     labels = soup.select('ul.clearfix.labelList.labelList-1')[0]
     labellist = []
 
-    for li in labels.findChildren('li', {'class': 'clearfix'}):
-        for div in li.findChildren('div', {'class': 'one'}):
+    for li in labels.select('li.clearfix'):
+        for div in li.select('div.one'):
             key = div.getText()
             value = div.findNextSibling('div', {'class': 'two'}).em.getText()
             labellist.append((key, value))
@@ -30,7 +30,8 @@ def parse_facility(soup):
     facilities = []
     no_facilities = []
 
-    facilityList = soup.findChildren('ul', {'class': 'facility clearfix'})[0]
+    #facilityList = soup.findChildren('ul', {'class': 'facility clearfix'})[0]
+    facilityList = soup.select('ul.facility.clearfix')[0]
     for facility in facilityList.findChildren('li'):
         if 'no' in facility.span['class']:
             no_facilities.append(facility.getText())
@@ -55,14 +56,18 @@ def parse_info(soup):
     explainSec = infoSection.select('div.explain')[0]
     attrs = infoSection.select('ul.attr li')
 
-    price = priceSec.i.getText().replace(u' ','').replace(u'\xa0','').replace(u' ','')
-    explain = explainSec.getText().replace(u' ', '').replace(u'\xa0', '')
-    info[u'費用'] = u"{0} ({1})".format(price, explain)
+    price = priceSec.i.getText().replace(u' ','').replace('\xa0','').replace(u' ','')
+    explain = explainSec.getText().replace(u' ', '').replace('\xa0', '')
+    info[u'租金'] = u"{0} ({1})".format(price, explain)
 
     for attr in attrs:
-        info.update((tuple(attr.getText().replace(u'&nbsp;', '').replace(u'\xa0', '').split(':')),))
+        info.update((tuple(attr.getText().replace(u'&nbsp;', '').replace('\xa0', '').split(':')),))
 
     return info
+
+def parse_status(soup):
+    return soup.select('div.houseIntro')[0].getText().replace('&nbsp;', ' ')\
+        .replace('<br>', '\n').replace(' ', '').replace('\xa0', '')
 
 def get_591_info(link):
     info = OrderedDict()
@@ -72,6 +77,7 @@ def get_591_info(link):
     facility_info = parse_facility(soup)
 
     info[u'標題'] = soup.select('span.houseInfoTitle')[0].getText()
+    info[u'地址'] = soup.select('span.addr')[0].getText()
     info[u'網址'] = link
     info[u'照片'] = parse_photos(soup)
 
@@ -79,6 +85,7 @@ def get_591_info(link):
     info[u'房東提供'] = facility_info[0]
     info[u'房東不提供'] = facility_info[1]
     info.update(parse_label_list(soup))
+    info[u'屋況'] = parse_status(soup)
 
     return info
     
@@ -92,29 +99,11 @@ def main():
     info_list = []
 
     for link in args.url:
-        info = OrderedDict()
-        raw = fetch_info(link)
-        soup = BeautifulSoup(raw, 'html.parser')
-        facility_info = parse_facility(soup)
-
-        info[u'標題'] = soup.select('span.houseInfoTitle')[0].getText()
-        info[u'網址'] = link
-        info[u'照片'] = parse_photos(soup)
-
-        info.update(parse_info(soup))
-        info[u'房東提供'] = facility_info[0]
-        info[u'房東不提供'] = facility_info[1]
-        info.update(parse_label_list(soup))
-        #extra = parse_label_list(soup)
-
-        #for k in extra:
-        #    info[k] = extra[k]
-
+        info = get_591_info(link)
         info_list.append(info)
-        
-
 
     if len(info_list) == 1:
+        print(info_list[0])
         print(json.dumps(info_list[0], ensure_ascii=False, indent=4))
     else:
         print(json.dumps(info_list, ensure_ascii=False, indent=4))
