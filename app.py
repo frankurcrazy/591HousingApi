@@ -7,6 +7,7 @@ import re
 
 app = Flask(__name__)
 app.config["JSON_SORT_KEYS"] = False
+app.config["JSON_AS_ASCII"] = True
 pattern = re.compile(r'^https://rent.591.com.tw/rent-detail-\d+.html$')
 
 @app.route('/591/<path:url>')
