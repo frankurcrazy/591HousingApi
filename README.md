@@ -31,7 +31,7 @@ pkg install -y tesseract
 3. 使用指令介面或 API 介面
 如果要使用指令介面請直接輸入
 ```bash
-python ./parsing.py [591 租屋網網址]
+python ./parse.py [591 租屋網網址]
 ```
 
 如果要使用 API 介面，請輸入
