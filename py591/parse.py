@@ -34,7 +34,6 @@ def parse_facility(soup):
     facilities = []
     no_facilities = []
 
-    #facilityList = soup.findChildren('ul', {'class': 'facility clearfix'})[0]
     facilityList = soup.select('ul.facility.clearfix')[0]
     for facility in facilityList.findChildren('li'):
         if 'no' in facility.span['class']:

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, jsonify
-from parse import get_591_info
+from py591.parse import get_591_info
 import re
 
 app = Flask(__name__)
