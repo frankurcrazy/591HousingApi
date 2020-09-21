@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "py591"
-version = "0.0.2"
+version = "0.0.3"
 description = "Parser and parsing API service for 591 Housing Rental service"
 authors = ["Frank Chang <frank@csie.io>"]
 license = "BSD-3-Clause"

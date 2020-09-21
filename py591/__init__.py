@@ -1,5 +1,5 @@
 __name__ = "py591"
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 __author__ = "Frank Chang"
 __author_email__ = "frank@csie.io"
 __license__ = "BSD-3-Clause"

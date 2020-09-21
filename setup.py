@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="py591",
-    version="0.0.2",
+    version="0.0.3",
     author="Frank Chang",
     author_email="frank@csie.io",
     description="Parser and parsing API service for 591 Housing Rental service",
