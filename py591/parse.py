@@ -79,7 +79,7 @@ def parse_phone_number(soup):
         rep = requests.get(phoneImgUrl, headers=headers).content
         image = Image.open(io.BytesIO(rep))
 
-        return pytesseract.image_to_string(image).replace(' ','')
+        return pytesseract.image_to_string(image, lang='eng', config='--dpi 200').strip().replace(' ','')
 
     return None
 
