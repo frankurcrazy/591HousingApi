@@ -118,7 +118,6 @@ def main():
         info_list.append(info)
 
     if len(info_list) == 1:
-        print(info_list[0])
         print(json.dumps(info_list[0], ensure_ascii=False, indent=4))
     else:
         print(json.dumps(info_list, ensure_ascii=False, indent=4))
