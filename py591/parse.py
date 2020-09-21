@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""591 rental parser
+"""
+
 import argparse
 import io
 import json
@@ -18,6 +21,15 @@ headers = {
 
 
 def fetch_info(link):
+    """Fetch utf-8 encoded bytes from given url
+
+    Arguments:
+        link: target URL
+
+    Returns:
+        source (bytes): UTF-8 encoded bytes
+    """
+
     return requests.get(link, headers=headers).text.encode("utf-8")
 
 
@@ -35,6 +47,15 @@ def parse_label_list(soup):
 
 
 def parse_facility(soup):
+    """Parse facility data from soup
+
+    Arguments:
+        soup: the soup object to parse from
+
+    Returns:
+        result (tuple): list of available facility and unavailable facility
+    """
+
     facilities = []
     no_facilities = []
 
@@ -49,6 +70,15 @@ def parse_facility(soup):
 
 
 def parse_photos(soup):
+    """Parse photo URLs from soup
+
+    Arguments:
+        soup: the soup object to parse from
+
+    Returns:
+        URL list: list of image URLs
+    """
+
     imgEles = soup.select("div.imgList")[0].findChildren("img")
     imgUrlList = []
     for img in imgEles:
@@ -58,6 +88,15 @@ def parse_photos(soup):
 
 
 def parse_info(soup):
+    """Parse rent and detail descriptions from soup
+
+    Arguments:
+        soup: the soup object to parse from
+
+    Returns:
+        information (dict): parsed information
+    """
+
     info = OrderedDict()
 
     infoSection = soup.select("div.detailInfo.clearfix")[0]
@@ -82,6 +121,15 @@ def parse_info(soup):
 
 
 def parse_status(soup):
+    """Parse the status text from the soup
+
+    Arguments:
+        soup: soup object to parse
+
+    Returns:
+        status text (string): status text
+    """
+
     return (
         soup.select("div.houseIntro")[0]
         .getText()
@@ -94,6 +142,15 @@ def parse_status(soup):
 
 
 def parse_phone_number(soup):
+    """Parse the phone number of the contact from the soup
+
+    Arguments:
+        soup: soup object to parse
+
+    Returns:
+        phone number (string): the parsed phone number if the phone number existed; otherwise, None is returned
+    """
+
     phoneImg = soup.select("span.num")
     if phoneImg[0].img:
         phoneImgUrl = phoneImg[0].img["src"].replace("//", "https://")
@@ -110,6 +167,15 @@ def parse_phone_number(soup):
 
 
 def get_591_info(link):
+    """Gather informations from the URL
+
+    Arguments:
+        link (string): target link to get information from.
+
+    Returns:
+        information (dict): gathered information
+    """
+
     info = OrderedDict()
 
     raw = fetch_info(link)
@@ -132,6 +198,7 @@ def get_591_info(link):
 
 
 def main():
+    """591 CLI parser"""
     parser = argparse.ArgumentParser(
         description="Fetch data from 591 and return a json string"
     )

@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""591 parsing service
+"""
+
 import re
 
 from flask import Flask, jsonify
@@ -15,6 +18,7 @@ pattern = re.compile(r"^https://rent.591.com.tw/rent-detail-\d+.html$")
 
 @app.route("/591/<path:url>")
 def get_info(url):
+    """Get rental information from 591 link"""
     if not pattern.match(url):
         return jsonify(
             {
