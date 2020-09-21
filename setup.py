@@ -27,12 +27,12 @@ setuptools.setup(
         "Topic :: Internet",
     ],
     keywords=["api", "591", "housing"],
-    python_requires='>=2.7,>=3.5',
+    python_requires=">=2.7,>=3.5",
     install_requires=[
         "beautifulsoup4==4.9.1",
         "Flask==1.1.2",
         "Pillow==7.2.0",
         "pytesseract==0.3.5",
         "requests==2.24.0",
-    ]
+    ],
 )
