@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "py591"
+version = "0.0.2"
+description = "Parser and parsing API service for 591 Housing Rental service"
+authors = ["Frank Chang <frank@csie.io>"]
+license = "BSD-3-Clause"
+classifiers=[
+    "Programming Language :: Python :: 2",
+    "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Topic :: Internet",
+]
+keywords=["api", "591", "housing"]
+
+[tool.poetry.dependencies]
+python = "^3.5"
+beautifulsoup4 = "^4.9.0"
+Flask = "^1.1.2"
+Pillow = "^7.2.0"
+pytesseract = "^0.3.5"
+requests = "^2.24.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
