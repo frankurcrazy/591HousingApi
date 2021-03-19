@@ -22,7 +22,7 @@ keywords=["api", "591", "housing"]
 python = "^3.6"
 beautifulsoup4 = "^4.9.0"
 Flask = "^1.1.2"
-Pillow = "^7.2.0"
+Pillow = ">=7.2,<9.0"
 pytesseract = "^0.3.5"
 requests = "^2.24.0"
 
