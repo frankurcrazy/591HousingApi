@@ -31,7 +31,7 @@ setuptools.setup(
     install_requires=[
         "beautifulsoup4==4.9.1",
         "Flask==1.1.2",
-        "Pillow==8.2.0",
+        "Pillow==8.3.2",
         "pytesseract==0.3.5",
         "requests==2.24.0",
     ],
